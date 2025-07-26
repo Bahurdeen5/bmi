@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import io, base64, numpy as np
 import torch, torch.nn as nn
+app = FastAPI()
 
 # -------------------- CONFIG --------------------
 SECRET_KEY = "supersecretkey"
