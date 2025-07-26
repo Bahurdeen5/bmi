@@ -1,9 +1,10 @@
 fastapi
 uvicorn
-python-multipart
 sqlalchemy
-jose
 passlib[bcrypt]
+python-jose
+python-multipart
 matplotlib
-numpy
 torch
+joblib
+
