@@ -42,4 +42,4 @@ for epoch in range(500):
 
 # Save model as 'bmi_model.pt'
 torch.save(model.state_dict(), "bmi_model.pt")
-print("✅ AI model saved as 'bmi_model.pt'")
+print("AI model saved as 'bmi_model.pt'")
