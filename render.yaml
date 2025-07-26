@@ -3,7 +3,7 @@ services:
     name: smart-bmi-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    startCommand: uvicorn main1:app --host 0.0.0.0 --port 10000
     plan: free
     branch: main
     runtime: python
