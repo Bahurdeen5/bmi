@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import io, base64, numpy as np
 import torch, torch.nn as nn
-
+import os
 
 # -------------------- CONFIG --------------------
 SECRET_KEY = "supersecretkey"
@@ -68,8 +68,12 @@ class SimpleNN(nn.Module):
         return self.fc2(x)
 
 ai_model = SimpleNN()
-ai_model.load_state_dict(torch.load("bmi_model.pt"))  # Ensure this model file exists
-ai_model.eval()
+model_path = "bmi_model.pt"
+if os.path.exists(model_path):
+    ai_model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
+    ai_model.eval()
+else:
+    ai_model = None
 
 # -------------------- UTILS --------------------
 def verify_password(plain, hashed):
@@ -137,6 +141,9 @@ def bmi_history(db: Session = Depends(SessionLocal), current_user: User = Depend
 # -------------------- AI + DIET --------------------
 @app.post("/predict_bmi_ai")
 def predict_bmi_ai(age: int, weight: float, height: float):
+    if ai_model is None:
+        raise HTTPException(status_code=500, detail="AI model not found on server")
+
     input_tensor = torch.tensor([[age, weight, height]], dtype=torch.float32)
     with torch.no_grad():
         pred = ai_model(input_tensor).item()
