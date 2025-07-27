@@ -9,3 +9,4 @@ services:
     runtime: python
     region: oregon
     autoDeploy: true
+    
